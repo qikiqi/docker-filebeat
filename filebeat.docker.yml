@@ -1,0 +1,24 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+filebeat.inputs:
+#------------------------------ Log input --------------------------------
+- type: log
+
+  # Change to true to enable this input configuration.
+  enabled: true
+
+  # Paths that should be crawled and fetched. Glob based paths.
+  # To fetch all ".log" files from a specific level of subdirectories
+  # /var/log/*/*.log can be used.
+  # For each file found under this path, a harvester is started.
+  # Make sure not file is defined twice as this can lead to unexpected behaviour.
+  paths:
+    - /bdp-data/*.csv
+
+output.logstash:
+  enabled: true
+  # This is commented out on purpose since the idea is to fill this with ansible rather than manually
+  #  hosts: ["192.168.1.7:5044"]
